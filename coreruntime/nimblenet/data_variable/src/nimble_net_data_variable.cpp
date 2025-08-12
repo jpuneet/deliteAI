@@ -25,7 +25,7 @@
 #include "retriever.hpp"
 #endif  // GENAI
 
-#ifdef IOS
+#if defined(__ANDROID__) || defined(IOS)
 // TODO (jpuneet): move this chunk to a separate file
 namespace {
 // UTF-8 helper function to determine if byte is a continuation byte
@@ -229,7 +229,7 @@ std::string process_phonemes(const char* phonemes) {
   return transform_phonemes(without_stress);
 }
 }  // anonymous namespace
-#endif  // IOS
+#endif  // defined(__ANDROID__) || defined(IOS)
 
 OpReturnType NimbleNetDataVariable::create_tensor(const std::vector<OpReturnType>& arguments) {
   THROW_ARGUMENTS_NOT_MATCH(arguments.size(), 2, MemberFuncType::CREATETENSOR);
@@ -522,7 +522,7 @@ OpReturnType NimbleNetDataVariable::set_threads(const std::vector<OpReturnType>&
 #endif  // MINIMAL_BUILD
 }
 
-#ifdef IOS
+#if defined(__ANDROID__) || defined(IOS)
 OpReturnType NimbleNetDataVariable::convert_text_to_phonemes(
     const std::vector<OpReturnType>& arguments) {
   THROW_ARGUMENTS_NOT_MATCH(arguments.size(), 1, MemberFuncType::CONVERT_TEXT_TO_PHONEMES);
@@ -536,7 +536,7 @@ OpReturnType NimbleNetDataVariable::convert_text_to_phonemes(
   }
   return std::make_shared<SingleVariable<std::string>>(phonemes);
 }
-#endif  // IOS
+#endif  // defined(__ANDROID__) || defined(IOS)
 
 OpReturnType NimbleNetDataVariable::call_function(int memberFuncIndex,
                                                   const std::vector<OpReturnType>& arguments,
@@ -594,11 +594,11 @@ OpReturnType NimbleNetDataVariable::call_function(int memberFuncIndex,
       return list_compatible_llms(arguments);
     case MemberFuncType::GET_HARDWARE_INFO:
       return get_hardware_info(arguments, stack);
-#ifdef IOS
+#if defined(__ANDROID__) || defined(IOS)
     case MemberFuncType::CONVERT_TEXT_TO_PHONEMES:
       // TODO (jpuneet): Should this be a part of another DelitePy module?
       return convert_text_to_phonemes(arguments);
-#endif  // IOS
+#endif  // defined(__ANDROID__) || defined(IOS)
   }
   THROW("%s not implemented for nimblenet", DataVariable::get_member_func_string(memberFuncIndex));
 }

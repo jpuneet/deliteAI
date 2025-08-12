@@ -132,8 +132,8 @@ enum MemberFuncType {
   ADD_CONTEXT,
   LIST_COMPATIBLE_LLMS,
   GET_HARDWARE_INFO,
-#ifdef IOS
+#if defined(__ANDROID__) || defined(IOS)
   CONVERT_TEXT_TO_PHONEMES,
-#endif  // IOS
+#endif  // defined(__ANDROID__) || defined(IOS)
   LASTTYPE,  // should be last
 };
