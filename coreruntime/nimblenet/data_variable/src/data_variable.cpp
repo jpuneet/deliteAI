@@ -106,6 +106,7 @@ std::map<std::string, int> DataVariable::_memberFuncMap = {
     {"add_context", MemberFuncType::ADD_CONTEXT},
     {"list_compatible_llms", MemberFuncType::LIST_COMPATIBLE_LLMS},
     {"get_hardware_info", MemberFuncType::GET_HARDWARE_INFO},
+    {"set_xnnpack_num_threads", MemberFuncType::SET_XNNPACK_NUM_THREADS},
 #if DELITEAI_TARGET_OS_ANDROID || DELITEAI_TARGET_OS_IOS
     {"convert_text_to_phonemes", MemberFuncType::CONVERT_TEXT_TO_PHONEMES},
 #endif  // DELITEAI_TARGET_OS_ANDROID || DELITEAI_TARGET_OS_IOS
@@ -199,6 +200,7 @@ std::map<int, std::string> DataVariable::_inverseMemberFuncMap = {
     {MemberFuncType::ADD_CONTEXT, "add_context"},
     {MemberFuncType::LIST_COMPATIBLE_LLMS, "list_compatible_llms"},
     {MemberFuncType::GET_HARDWARE_INFO, "get_hardware_info"},
+    {MemberFuncType::SET_XNNPACK_NUM_THREADS, "set_xnnpack_num_threads"},
 #if DELITEAI_TARGET_OS_ANDROID || DELITEAI_TARGET_OS_IOS
     {MemberFuncType::CONVERT_TEXT_TO_PHONEMES, "convert_text_to_phonemes"},
 #endif  // DELITEAI_TARGET_OS_ANDROID || DELITEAI_TARGET_OS_IOS

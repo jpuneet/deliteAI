@@ -468,6 +468,14 @@ OpReturnType NimbleNetDataVariable::get_hardware_info(const std::vector<OpReturn
   return DataVariable::get_map_from_json_object(std::move(j));
 }
 
+OpReturnType NimbleNetDataVariable::set_xnnpack_num_threads(
+    const std::vector<OpReturnType>& arguments, CallStack& stack) {
+  THROW_ARGUMENTS_NOT_MATCH(arguments.size(), 1, MemberFuncType::SET_XNNPACK_NUM_THREADS);
+
+  ModelNimbleNetVariable::set_xnnpack_intra_op_num_threads(arguments[0]->get_int32());
+  return std::make_shared<NoneVariable>();
+}
+
 /*
  * 1. Get device tier
  * 2. Get the LLMs in deployment from asset manager in cloud
@@ -595,6 +603,8 @@ OpReturnType NimbleNetDataVariable::call_function(int memberFuncIndex,
       return list_compatible_llms(arguments);
     case MemberFuncType::GET_HARDWARE_INFO:
       return get_hardware_info(arguments, stack);
+    case MemberFuncType::SET_XNNPACK_NUM_THREADS:
+      return set_xnnpack_num_threads(arguments, stack);
 #if DELITEAI_TARGET_OS_ANDROID || DELITEAI_TARGET_OS_IOS
     case MemberFuncType::CONVERT_TEXT_TO_PHONEMES:
       // TODO (jpuneet): Should this be a part of another DelitePy module?
